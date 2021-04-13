@@ -13,6 +13,14 @@ class ProductPage(BasePage):
     def should_be_product_price(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), "Product price is not presented"
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+           "Success message is presented, but should not be"
+
+    def success_message_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+           "Success message is not disappeared, but should be"
+
     def click_add_to_basket_button(self):
         button = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BUTTON)
         button.click()
@@ -20,9 +28,11 @@ class ProductPage(BasePage):
     def right_product_name_in_success_message(self):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
         product_added_to_cart_name = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_TO_CART_NAME).text
-        assert product_name == product_added_to_cart_name, f"Expected product with name {product_name} in message, got {product_added_to_cart_name}"
+        assert product_name == product_added_to_cart_name, \
+            f"Expected product with name {product_name} in message, got {product_added_to_cart_name}"
 
     def right_product_price_in_success_message(self):
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         product_added_to_cart_price = self.browser.find_element(*ProductPageLocators.PRODUCT_ADDED_TO_CART_PRICE).text
-        assert product_price == product_added_to_cart_price, f"Expected product with name {product_price} in message, got {product_added_to_cart_price}"
+        assert product_price == product_added_to_cart_price, \
+            f"Expected product with name {product_price} in message, got {product_added_to_cart_price}"
